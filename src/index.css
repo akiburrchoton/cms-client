@@ -1,5 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @plugin "daisyui" {
    themes: light --default, dark --prefersdark;
  }
+
+@theme {
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-libre: "Libre Franklin", sans-serif;
+  --color-brand: #413685;
+  --color-orange: #FF9232;
+  --color-lightPrimary: #DED9E8;
+  --color-lightSecondary: #FFF2E6;
+  --color-white: #fff;
+  --color-mainText: #5e5e5e;
+  --color-title: #111111;
+}
+
+.navbar a.active {
+  color: #FF9232;
+}
+
+.navbar a:hover{
+  background-color: transparent;
+  color: #413685;
+}
 
