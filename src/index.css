@@ -1,4 +1,6 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import "tailwindcss";
 @plugin "daisyui" {
    themes: light --default, dark --prefersdark;
@@ -24,4 +26,14 @@
   background-color: transparent;
   color: #413685;
 }
+.slick-prev:before, .slick-next:before{
+  color: var(--color-brand)!important;
+}
+/* 
+.slick-slide{
+  margin-right: 30px;
+} */
 
+.slick-slide > div { 
+  padding: 0 10px; 
+}
