@@ -24,7 +24,7 @@ export default function HomeSlider() {
   };
 
   return (
-    <div className=" w-11/12">
+    <div className="w-[1300px]">
       <div className="slider-container ">
         <Slider ref={(slider) => (sliderRef = slider)} {...settings}>
           <div className="font-libre text-left border-2 border-[#FF9232] rounded-2xl py-10 pl-8 pr-15 mr-10">

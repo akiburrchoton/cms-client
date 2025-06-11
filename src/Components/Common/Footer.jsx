@@ -3,8 +3,8 @@ import { NavLink } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="bg-white py-12 px-4 font-libre">
-      <div className="max-w-11/12 mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <footer className="bg-brand/8 pt-20 px-4 font-libre">
+      <div className="max-w-11/12 mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 pb-5">
         {/* First Column: Logo and Slogan */}
         <div className="col-span-2 md:col-span-2">
           <div className="mb-4">
@@ -94,14 +94,14 @@ const Footer = () => {
       </div>
 
       {/* Copyright/Footer Bottom */}
-      <div className="max-w-11/12 mx-auto py-5 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600">
+      <div className="max-w-11/12 mx-auto pt-2 pb-10 border-t border-brand/30 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600">
         <div className="mb-4 sm:mb-0">
           <a className="font-montserrat font-bold text-[19px] ">
             <span className="text-brand">The Learning</span>{" "}
             <span className="text-orange ">Loop</span>
           </a>
         </div>
-        <p>© {new Date().getFullYear()}. Created by WeDesignTech</p>
+        <p>© {new Date().getFullYear()}. Created by Akibur Rahman</p>
       </div>
     </footer>
   );

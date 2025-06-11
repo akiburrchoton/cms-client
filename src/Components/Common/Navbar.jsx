@@ -5,7 +5,7 @@ function Navbar() {
   const [loggedinUser, setloggedinUser] = useState(false);
   return (
     <>
-      <div className="bg-base-200 w-full shadow-md/6 font-libre">
+      <div className="bg-base-200  shadow-md/6 font-libre">
         <div className="navbar w-11/12 mx-auto py-5">
           <div className="navbar-start">
             <div className="dropdown">
@@ -136,7 +136,7 @@ function Navbar() {
                     <span>Log In</span>
                   </button>
                 </NavLink>
-                
+
                 <NavLink to="/register">
                   <button className="btn bg-(--color-orange) text-white font-bold rounded-full px-6">
                     <span>Register</span>
