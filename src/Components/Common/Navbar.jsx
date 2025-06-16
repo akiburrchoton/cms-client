@@ -1,8 +1,20 @@
-import { useState } from "react";
-import { NavLink } from "react-router";
+import { use, useState } from "react";
+import { NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 function Navbar() {
-  const [loggedinUser, setloggedinUser] = useState(false);
+  // const [loggedinUser, setloggedinUser] = useState(false);
+  const navigate = useNavigate();
+  const { loggedinUser, logoutUser } = use(AuthContext);
+
+  const handleLogout = () => {
+    logoutUser()
+      .then(() => {
+        navigate("/login");
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <>
       <div className="bg-base-200  shadow-md/6 font-libre">
@@ -39,19 +51,23 @@ function Navbar() {
                 </li>
 
                 <li>
-                  <NavLink to="/courses">Courses</NavLink>
+                  <NavLink to="/courses">All Courses</NavLink>
                 </li>
 
-                <li>
-                  <NavLink to="/addcourse">Add Course</NavLink>
-                </li>
+                {loggedinUser && (
+                  <>
+                    <li>
+                      <NavLink to="/addcourse">Add Course</NavLink>
+                    </li>
 
-                <li>
-                  <NavLink to="/managecourses">Manage Courses</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/enrolledcourses">Enrolled Courses</NavLink>
-                </li>
+                    <li>
+                      <NavLink to="/managecourses">Manage Courses</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/enrolledcourses">Enrolled Courses</NavLink>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
             <a className="text-xl font-montserrat font-bold text-[25px]">
@@ -66,19 +82,23 @@ function Navbar() {
               </li>
 
               <li>
-                <NavLink to="/courses">Courses</NavLink>
+                <NavLink to="/courses">All Courses</NavLink>
               </li>
 
-              <li>
-                <NavLink to="/addcourse">Add Course</NavLink>
-              </li>
+              {loggedinUser && (
+                <>
+                  <li>
+                    <NavLink to="/addcourse">Add Course</NavLink>
+                  </li>
 
-              <li>
-                <NavLink to="/managecourses">Manage Courses</NavLink>
-              </li>
-              <li>
-                <NavLink to="/enrolledcourses">Enrolled Courses</NavLink>
-              </li>
+                  <li>
+                    <NavLink to="/managecourses">Manage Courses</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/enrolledcourses">Enrolled Courses</NavLink>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
           <div className="navbar-end">
@@ -107,7 +127,7 @@ function Navbar() {
                   </li>
                   <li>
                     <button
-                      // onClick={handleLogout}
+                      onClick={handleLogout}
                       className="btn btn-outline btn-error mt-3"
                     >
                       <NavLink to="/login">Logout</NavLink>

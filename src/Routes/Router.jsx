@@ -4,6 +4,7 @@ import Homepage from "../Pages/Homepage";
 import HomeSlider from "../Components/Other/HomeSlider";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
+import AllCourses from "../Components/Other/AllCourses";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         Component: RegisterPage,
+      },
+      {
+        path: "/courses",
+        Component: AllCourses,
       },
     ],
   },

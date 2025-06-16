@@ -1,7 +1,29 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { use } from "react";
+import { NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../Contexts/AuthContext";
 
 function LoginPage() {
+  const { loginUser, setloggedinUser } = use(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const { email, password } = Object.fromEntries(formData.entries());
+    // console.log(email, password);
+
+    // Login User
+    loginUser(email, password)
+      .then((result) => {
+        console.log("Loggedin", result);
+        setloggedinUser(result.user);
+      })
+      .catch((error) => console.log("Problem"));
+
+    navigate("/");
+  };
+
   return (
     <>
       <section className="w-full flex items-center justify-around">
@@ -17,13 +39,14 @@ function LoginPage() {
               </NavLink>
             </p>
           </div>
-          <form>
+          <form onSubmit={handleLogin}>
             <fieldset className="fieldset font-libre mb-3">
               <legend className="fieldset-legend font-montserrat text-[16px]">
                 Email
               </legend>
               <input
                 type="email"
+                name="email"
                 className="input w-full rounded-xl border-brand/25 border-2"
                 placeholder="example@gamil.com"
               />
@@ -35,6 +58,7 @@ function LoginPage() {
               </legend>
               <input
                 type="password"
+                name="password"
                 className="input w-full rounded-xl border-brand/25 border-2"
                 placeholder="********"
               />
