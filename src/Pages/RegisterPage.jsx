@@ -2,9 +2,10 @@ import React, { use, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 import { updateProfile } from "firebase/auth";
+import axios from "axios";
 
 function RegisterPage() {
-  const { createUser, logoutUser } = use(AuthContext);
+  const { createUser, logoutUser, setloggedinUser } = use(AuthContext);
   const [errors, setErrors] = useState("");
   const navigate = useNavigate();
 
@@ -27,6 +28,14 @@ function RegisterPage() {
       setErrors(""); // no errors
     }
 
+    // For Backend
+    const userProfileInfo = {
+      name,
+      email,
+      password1,
+      photoURL,
+    };
+
     // Register User
     createUser(email, password1).then((result) => {
       setloggedinUser(result.user);
@@ -37,6 +46,16 @@ function RegisterPage() {
         photoURL: photoURL,
       });
 
+      // Storing user profile information in the database by using the API
+      axios
+        .post("http://localhost:3000/users", userProfileInfo)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
       logoutUser()
         .then(() => {
           // console.log("Logout Successful");
@@ -44,14 +63,6 @@ function RegisterPage() {
         })
         .catch((error) => console.log(error));
     });
-
-    // Backend
-    const userProfileInfo = {
-      name,
-      email,
-      password1,
-      photoURL,
-    };
 
     e.target.reset();
   };

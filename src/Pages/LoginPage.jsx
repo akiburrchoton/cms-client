@@ -1,11 +1,20 @@
 import React, { use } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  GithubAuthProvider,
+} from "firebase/auth";
+import { auth } from "../Firebase/Firebase.init";
 
 function LoginPage() {
   const { loginUser, setloggedinUser } = use(AuthContext);
   const navigate = useNavigate();
+  const googleAuthProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
 
+  // Default Login
   const handleLogin = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -18,10 +27,42 @@ function LoginPage() {
       .then((result) => {
         console.log("Loggedin", result);
         setloggedinUser(result.user);
+        navigate("/");
       })
       .catch((error) => console.log("Problem"));
+  };
 
-    navigate("/");
+  // Login by Google
+  const handleLoginbyGoogle = (e) => {
+    e.preventDefault();
+
+    signInWithPopup(auth, googleAuthProvider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+
+        const user = result.user;
+        setloggedinUser(user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // Login by Github
+  const handleLoginbyGithub = (e) => {
+    signInWithPopup(auth, githubProvider)
+      .then((result) => {
+        const credential = GithubAuthProvider.credentialFromResult(result);
+
+        const user = result.user;
+        setloggedinUser(user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -72,7 +113,10 @@ function LoginPage() {
           <div className="divider">OR</div>
 
           {/* Google */}
-          <button className="btn bg-white text-black border-[#e5e5e5] w-full rounded-xl mb-4">
+          <button
+            onClick={handleLoginbyGoogle}
+            className="btn bg-white text-black border-[#e5e5e5] w-full rounded-xl mb-4"
+          >
             <svg
               aria-label="Google logo"
               width="16"
@@ -104,7 +148,10 @@ function LoginPage() {
           </button>
 
           {/* GitHub */}
-          <button className="btn bg-black text-white border-black rounded-xl w-full">
+          <button
+            onClick={handleLoginbyGithub}
+            className="btn bg-black text-white border-black rounded-xl w-full"
+          >
             <svg
               aria-label="GitHub logo"
               width="16"
