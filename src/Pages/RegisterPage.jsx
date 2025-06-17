@@ -1,5 +1,5 @@
 import React, { use, useState } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 import { updateProfile } from "firebase/auth";
 import axios from "axios";
@@ -8,6 +8,7 @@ function RegisterPage() {
   const { createUser, logoutUser, setloggedinUser } = use(AuthContext);
   const [errors, setErrors] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Register
   const handleRegister = (e) => {
@@ -32,7 +33,6 @@ function RegisterPage() {
     const userProfileInfo = {
       name,
       email,
-      password1,
       photoURL,
     };
 
@@ -50,7 +50,9 @@ function RegisterPage() {
       axios
         .post("http://localhost:3000/users", userProfileInfo)
         .then((res) => {
-          console.log(res.data);
+          if (res.data.insertedId) {
+            console.log(res.data);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -172,7 +174,7 @@ function RegisterPage() {
         {/* Right Section  */}
         <div className="w-1/2">
           <img
-            src="src/assets/banner-img-2.jpg"
+            src="https://i.ibb.co/gLDrqsv3/banner-img-1.jpg"
             alt=""
             className="w-full h-[950px] object-cover object-center"
           />

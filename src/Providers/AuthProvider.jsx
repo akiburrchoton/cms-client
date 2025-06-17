@@ -10,12 +10,13 @@ import { AuthContext } from "../Contexts/AuthContext";
 
 function AuthProvider({ children }) {
   const [loggedinUser, setloggedinUser] = useState(null);
+  const [loading, setloading] = useState(true);
 
   useEffect(() => {
     // To hold the logged in user data
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setloggedinUser(currentUser);
-      // setloading(false);
+      setloading(false);
     });
 
     return () => {
@@ -25,17 +26,21 @@ function AuthProvider({ children }) {
 
   const createUser = (email, password) => {
     // Set loading true here
+    setloading(true);
 
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const loginUser = (email, password) => {
     // Set loading
+    setloading(true);
 
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logoutUser = () => {
+    setloading(true);
+
     return signOut(auth);
   };
 
@@ -45,6 +50,8 @@ function AuthProvider({ children }) {
     loggedinUser,
     setloggedinUser,
     logoutUser,
+    loading,
+    setloading,
   };
 
   return <AuthContext value={userInfo}>{children}</AuthContext>;

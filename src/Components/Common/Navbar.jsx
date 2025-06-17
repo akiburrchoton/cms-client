@@ -57,14 +57,16 @@ function Navbar() {
                 {loggedinUser && (
                   <>
                     <li>
-                      <NavLink to="/addcourse">Add Course</NavLink>
+                      <NavLink to="/add-course">Add Course</NavLink>
                     </li>
 
                     <li>
-                      <NavLink to="/managecourses">Manage Courses</NavLink>
+                      <NavLink to="/manage-courses">Manage Courses</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/enrolledcourses">Enrolled Courses</NavLink>
+                      <NavLink to="/my-enrolled-courses">
+                        Enrolled Courses
+                      </NavLink>
                     </li>
                   </>
                 )}
@@ -88,14 +90,16 @@ function Navbar() {
               {loggedinUser && (
                 <>
                   <li>
-                    <NavLink to="/addcourse">Add Course</NavLink>
+                    <NavLink to="/add-course">Add Course</NavLink>
                   </li>
 
                   <li>
-                    <NavLink to="/managecourses">Manage Courses</NavLink>
+                    <NavLink to="/manage-courses">Manage Courses</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/enrolledcourses">Enrolled Courses</NavLink>
+                    <NavLink to="/my-enrolled-courses">
+                      Enrolled Courses
+                    </NavLink>
                   </li>
                 </>
               )}

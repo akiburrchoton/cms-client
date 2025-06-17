@@ -63,7 +63,7 @@ function Banner() {
         </div>
         <div className="flex gap-6 justify-end items-center">
           <motion.img
-            src="src/assets/banner-img-1.jpg"
+            src="https://i.ibb.co/gLDrqsv3/banner-img-1.jpg"
             alt=""
             className="h-90 rounded-b-full overflow-hidden"
             style={{
@@ -72,7 +72,7 @@ function Banner() {
             }}
           />
           <motion.img
-            src="src/assets/banner-img-2.jpg"
+            src="https://i.ibb.co/1Gvmhz0r/banner-img-2.jpg"
             alt=""
             className="h-110 rounded-t-full mt-10"
             style={{

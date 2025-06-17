@@ -1,5 +1,5 @@
 import React, { use } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 import {
   GoogleAuthProvider,
@@ -13,6 +13,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const googleAuthProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
+  const location = useLocation();
 
   // Default Login
   const handleLogin = (e) => {
@@ -20,14 +21,15 @@ function LoginPage() {
     const formData = new FormData(e.target);
 
     const { email, password } = Object.fromEntries(formData.entries());
-    // console.log(email, password);
 
     // Login User
     loginUser(email, password)
       .then((result) => {
         console.log("Loggedin", result);
         setloggedinUser(result.user);
-        navigate("/");
+        e.target.reset();
+
+        navigate(location.state || "/");
       })
       .catch((error) => console.log("Problem"));
   };
@@ -40,10 +42,9 @@ function LoginPage() {
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
-
         const user = result.user;
         setloggedinUser(user);
-        navigate("/");
+        navigate(location.state || "/");
       })
       .catch((error) => {
         console.log(error);
@@ -57,8 +58,9 @@ function LoginPage() {
         const credential = GithubAuthProvider.credentialFromResult(result);
 
         const user = result.user;
+
         setloggedinUser(user);
-        navigate("/");
+        navigate(location.state || "/");
       })
       .catch((error) => {
         console.log(error);
