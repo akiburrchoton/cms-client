@@ -20,6 +20,7 @@ function AddCourse() {
       courseDescription,
       coverPicture,
       courseDuration,
+      numberofEnrolment: "0",
       userEmail: loggedinUser?.email,
       userName: loggedinUser?.displayName,
       createdAtDisplay: formattedDateForDisplay, // For displaying to users
