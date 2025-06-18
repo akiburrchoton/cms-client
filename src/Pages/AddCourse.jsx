@@ -1,6 +1,6 @@
 import React, { use } from "react";
-import { AuthContext } from "../../Contexts/AuthContext";
-import { getFormattedDate } from "../../Utils/dateFormatter";
+import { AuthContext } from "../Contexts/AuthContext";
+import { getFormattedDate } from "../Utils/dateFormatter";
 import axios from "axios";
 
 function AddCourse() {

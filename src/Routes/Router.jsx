@@ -3,12 +3,14 @@ import App from "../App";
 import Homepage from "../Pages/Homepage";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
-import AllCourses from "../Components/Other/AllCourses";
-import AddCourse from "../Components/Other/AddCourse";
-import MyEnrolledCourses from "../Components/Other/MyEnrolledCourses";
+import AllCourses from "../Pages/AllCourses";
+import AddCourse from "../Pages/AddCourse";
+import MyEnrolledCourses from "../Pages/MyEnrolledCourses";
 import PrivateRoute from "../Providers/PrivateRoute";
-import ManageCourses from "../Components/Other/ManageCourses";
-import EditCourse from "../Components/Other/EditCourse";
+import ManageCourses from "../Pages/ManageCourses";
+import EditCourse from "../Pages/EditCourse";
+import Loading from "../Components/Common/Loading";
+import CourseDetail from "../Pages/CourseDetail";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +23,7 @@ export const router = createBrowserRouter([
         index: true,
         path: "/",
         loader: () => fetch("http://localhost:3000/selectedCourses"),
+        hydrateFallbackElement: <Loading></Loading>,
         Component: Homepage,
       },
       {
@@ -33,7 +36,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/courses",
+        loader: () => fetch("http://localhost:3000/courses"),
+        hydrateFallbackElement: <Loading></Loading>,
         Component: AllCourses,
+      },
+      {
+        path: "/course/abc",
+        // loader: () => fetch("http://localhost:3000/courses"),
+        // hydrateFallbackElement: <Loading></Loading>,
+        Component: CourseDetail,
       },
       {
         path: "/add-course",
