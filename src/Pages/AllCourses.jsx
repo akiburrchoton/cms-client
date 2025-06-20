@@ -14,7 +14,6 @@ function AllCourses() {
             All <span className="text-4xl font-bold text-orange">Courses</span>
           </h1>
         </div>
-
         {/* Course Cards  */}
         <div className="grid grid-cols-3 w-full">
           {allCourses.map((course) => (
@@ -22,6 +21,7 @@ function AllCourses() {
           ))}
         </div>
 
+        {/* Register button */}
         <div className="mt-10">
           <NavLink to="/register">
             <button className="btn bg-(--color-orange) text-white font-bold rounded-full px-6">

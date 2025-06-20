@@ -32,7 +32,7 @@ function PopularCourse({ popularCourse }) {
         </p>
         {/* Button  */}
         <div className="w-full">
-          <NavLink to="/register">
+          <NavLink to={`/course/${_id}`}>
             <button className="btn bg-(--color-orange) text-white font-bold rounded-full font-libre text-[16px] py-6 w-full">
               <span>Course Details</span>
               <svg

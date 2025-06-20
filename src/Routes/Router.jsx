@@ -41,9 +41,10 @@ export const router = createBrowserRouter([
         Component: AllCourses,
       },
       {
-        path: "/course/abc",
-        // loader: () => fetch("http://localhost:3000/courses"),
-        // hydrateFallbackElement: <Loading></Loading>,
+        path: "/course/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/course/${params.id}`),
+        hydrateFallbackElement: <Loading></Loading>,
         Component: CourseDetail,
       },
       {
