@@ -6,7 +6,6 @@ import ManageCourseRow from "../Components/Other/ManageCourseRow";
 function ManageCourses() {
   const { loggedinUser } = use(AuthContext);
   const userEmail = loggedinUser?.email;
-  // console.log(typeof userEmail);
 
   const [myCourses, setmyCourses] = useState([]);
 

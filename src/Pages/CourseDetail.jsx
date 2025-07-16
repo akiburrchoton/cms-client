@@ -1,24 +1,59 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { NavLink, useLoaderData } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 import Loading from "../Components/Common/Loading";
+import axios from "axios";
 
 function CourseDetail() {
   const { loggedinUser, loading } = use(AuthContext);
   const [isClicked, setIsClicked] = useState(false);
 
   const {
+    _id,
     courseTitle,
     courseDescription,
     coverPicture,
     courseDuration,
     userName,
     numberofEnrolment,
+    userEmail,
   } = useLoaderData();
 
+  const loggedinUserEmail = loggedinUser?.email;
+
+  const enrolmentInfo = {
+    _id,
+    loggedinUserEmail,
+  };
+
+  // To set the isClicked state from localStorage for initial stage
+  useEffect(() => {
+    setIsClicked(localStorage.getItem(`course_${_id}_enrolled`));
+  }, [_id]);
+
+  useEffect(() => {
+    if (isClicked) {
+      localStorage.setItem(`course_${_id}_enrolled`, isClicked.toString());
+    }
+  }, [isClicked]);
+
   const handleEnrollClick = () => {
+    axios
+      .post("http://localhost:3000/enrolCourse", enrolmentInfo)
+      .then((res) => {
+        if (res.data.insertedId) {
+          console.log("Enrolment Successful");
+        }
+      })
+      .catch((error) => {
+        if (error.status === 409) {
+          console.log("User Exists");
+        }
+      });
+
     setIsClicked(true);
   };
+
   return (
     <>
       {/* All Courses Section  */}
@@ -114,7 +149,7 @@ function CourseDetail() {
                     ? "btn bg-(--color-orange) text-white font-bold rounded-full px-6"
                     : "font-bold rounded-full px-6 bg-gray-300 text-gray-500  cursor-not-allowed flex items-center py-2"
                 }
-                disabled={!loggedinUser}
+                disabled={!loggedinUser || isClicked}
               >
                 {isClicked ? <span>Enrolled</span> : <span>Enroll</span>}
 
