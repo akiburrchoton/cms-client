@@ -1,11 +1,15 @@
 import React, { use } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { getFormattedDate } from "../Utils/dateFormatter";
-import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
+import API from "../API/axios";
+import { Helmet } from "react-helmet-async";
 
 function AddCourse() {
   const { loggedinUser } = use(AuthContext);
   const now = new Date();
+  const navigate = useNavigate();
   const formattedDateForDisplay = getFormattedDate(now);
 
   const handleAddCourse = (e) => {
@@ -28,19 +32,37 @@ function AddCourse() {
     };
 
     // Store in Databse
-    axios
-      .post("http://localhost:3000/addcourse", courseInformation)
+    API.post(
+      "https://cms-server-side-theta.vercel.app/addcourse",
+      courseInformation
+    )
       .then((result) => {
         if (result.data.insertedId) {
-          console.log(result.data);
+          Swal.fire({
+            title: "Course added successfully!",
+            icon: "success",
+            draggable: true,
+          });
+
+          navigate("/manage-courses");
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
 
     e.target.reset();
   };
   return (
     <>
+      <Helmet>
+        <title>Add Course | The Learning Loop</title>
+      </Helmet>
+
       <section className="w-full flex items-center justify-around">
         <div className="w-1/2 px-[13%] flex flex-col justify-center">
           <div className="mb-4">

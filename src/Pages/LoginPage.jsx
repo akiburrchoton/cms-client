@@ -7,6 +7,9 @@ import {
   GithubAuthProvider,
 } from "firebase/auth";
 import { auth } from "../Firebase/Firebase.init";
+import Swal from "sweetalert2";
+import API from "../API/axios";
+import { Helmet } from "react-helmet-async";
 
 function LoginPage() {
   const { loginUser, setloggedinUser } = use(AuthContext);
@@ -14,6 +17,25 @@ function LoginPage() {
   const googleAuthProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
   const location = useLocation();
+
+  // This new function sends the Firebase ID token to the backend to get the cookie
+  const exchangeTokenForCookie = async (user) => {
+    try {
+      const idToken = await user.getIdToken();
+
+      await API.post(
+        "https://cms-server-side-theta.vercel.app/api/sessionLogin",
+        { idToken: idToken },
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log("Session cookie set successfully!");
+    } catch (error) {
+      console.error("Error exchanging token for cookie:", error);
+    }
+  };
 
   // Default Login
   const handleLogin = (e) => {
@@ -24,14 +46,21 @@ function LoginPage() {
 
     // Login User
     loginUser(email, password)
-      .then((result) => {
-        console.log("Loggedin", result);
+      .then(async (result) => {
         setloggedinUser(result.user);
         e.target.reset();
 
+        await exchangeTokenForCookie(result.user);
+
         navigate(location.state || "/");
       })
-      .catch((error) => console.log("Problem"));
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Login Unsuccessful !",
+        });
+      });
   };
 
   // Login by Google
@@ -39,36 +68,45 @@ function LoginPage() {
     e.preventDefault();
 
     signInWithPopup(auth, googleAuthProvider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        const user = result.user;
-        setloggedinUser(user);
+      .then(async (result) => {
+        setloggedinUser(result.user);
+        await exchangeTokenForCookie(result.user);
+
         navigate(location.state || "/");
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Login Unsuccessful !",
+        });
       });
   };
 
   // Login by Github
   const handleLoginbyGithub = (e) => {
     signInWithPopup(auth, githubProvider)
-      .then((result) => {
-        const credential = GithubAuthProvider.credentialFromResult(result);
+      .then(async (result) => {
+        setloggedinUser(result.user);
+        await exchangeTokenForCookie(result.user);
 
-        const user = result.user;
-
-        setloggedinUser(user);
         navigate(location.state || "/");
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Login Unsuccessful !",
+        });
       });
   };
 
   return (
     <>
+      <Helmet>
+        <title>Sign In | The Learning Loop</title>
+      </Helmet>
+
       <section className="w-full flex items-center justify-around">
         <div className="w-1/2 px-[13%] flex flex-col justify-center">
           <div className="mb-4">

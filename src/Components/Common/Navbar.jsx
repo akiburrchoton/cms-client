@@ -1,9 +1,9 @@
 import { use, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../Contexts/AuthContext";
+import Swal from "sweetalert2";
 
 function Navbar() {
-  // const [loggedinUser, setloggedinUser] = useState(false);
   const navigate = useNavigate();
   const { loggedinUser, logoutUser } = use(AuthContext);
 
@@ -12,7 +12,13 @@ function Navbar() {
       .then(() => {
         navigate("/login");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
   };
 
   return (

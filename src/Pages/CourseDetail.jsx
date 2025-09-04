@@ -1,12 +1,14 @@
 import React, { use, useEffect, useState } from "react";
-import { NavLink, useLoaderData } from "react-router";
+import { NavLink, useLoaderData, useNavigate } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 import Loading from "../Components/Common/Loading";
-import axios from "axios";
+import Swal from "sweetalert2";
+import API from "../API/axios";
 
 function CourseDetail() {
   const { loggedinUser, loading } = use(AuthContext);
   const [isClicked, setIsClicked] = useState(false);
+  const navigate = useNavigate();
 
   const {
     _id,
@@ -38,17 +40,27 @@ function CourseDetail() {
   }, [isClicked]);
 
   const handleEnrollClick = () => {
-    axios
-      .post("http://localhost:3000/enrolCourse", enrolmentInfo)
+    API.post(
+      "https://cms-server-side-theta.vercel.app/enrolCourse",
+      enrolmentInfo
+    )
       .then((res) => {
         if (res.data.insertedId) {
-          console.log("Enrolment Successful");
+          Swal.fire({
+            title: "Enrolled successfully!",
+            icon: "success",
+            draggable: true,
+          });
+
+          navigate("/my-enrolled-courses");
         }
       })
       .catch((error) => {
-        if (error.status === 409) {
-          console.log("User Exists");
-        }
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Enrolment unsuccessful !",
+        });
       });
 
     setIsClicked(true);

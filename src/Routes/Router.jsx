@@ -22,7 +22,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         path: "/",
-        loader: () => fetch("http://localhost:3000/selectedCourses"),
+        loader: () =>
+          fetch("https://cms-server-side-theta.vercel.app/selectedCourses", {
+            credentials: "include",
+          }),
         hydrateFallbackElement: <Loading></Loading>,
         Component: Homepage,
       },
@@ -36,16 +39,32 @@ export const router = createBrowserRouter([
       },
       {
         path: "/courses",
-        loader: () => fetch("http://localhost:3000/courses"),
+        loader: () =>
+          fetch("https://cms-server-side-theta.vercel.app/courses", {
+            credentials: "include",
+          }),
         hydrateFallbackElement: <Loading></Loading>,
         Component: AllCourses,
       },
       {
         path: "/course/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/course/${params.id}`),
+          fetch(
+            `https://cms-server-side-theta.vercel.app/course/${params.id}`,
+            {
+              credentials: "include",
+            }
+          ),
         hydrateFallbackElement: <Loading></Loading>,
         Component: CourseDetail,
+      },
+      {
+        path: "/edit/course/:id",
+        element: (
+          <PrivateRoute>
+            <EditCourse></EditCourse>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-course",

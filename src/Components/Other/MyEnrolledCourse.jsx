@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import { data, NavLink } from "react-router";
 import { AuthContext } from "../../Contexts/AuthContext";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function MyEnrolledCourse({
   myEnrolledCourse,
@@ -25,20 +26,45 @@ function MyEnrolledCourse({
       enrolledUser: userEmail,
     };
 
-    axios
-      .delete(`http://localhost:3000/unenroll/${courseID}`, {
-        data: {
-          courseInformation,
-        },
-      })
-      .then((result) => {
-        if (result.data.deletedCount === 1) {
-          setmyEnrolledCourses((prevCourses) =>
-            prevCourses.filter((course) => course._id !== courseID)
-          );
-        }
-      })
-      .catch((error) => console.log(error));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`https://cms-server-side-theta.vercel.app/unenroll/${courseID}`, {
+            data: {
+              courseInformation,
+            },
+          })
+          .then((result) => {
+            if (result.data.deletedCount === 1) {
+              setmyEnrolledCourses((prevCourses) =>
+                prevCourses.filter((course) => course._id !== courseID)
+              );
+
+              // Deleted Successfully
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your course has been deleted.",
+                icon: "success",
+              });
+            }
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Course couldn't be deleted!",
+            });
+          });
+      }
+    });
   };
 
   return (

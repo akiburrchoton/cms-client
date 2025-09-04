@@ -40,7 +40,7 @@ function Banner() {
             integer quis auctor elit sed.Dictum at tempor commodo.
           </p>
           <div className="mt-10">
-            <NavLink to="/register">
+            <NavLink to="/courses">
               <button className="btn bg-(--color-orange) text-white font-bold rounded-full px-6">
                 <span>Explore Courses</span>
                 <svg

@@ -2,7 +2,9 @@ import React, { use, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 import { updateProfile } from "firebase/auth";
-import axios from "axios";
+import Swal from "sweetalert2";
+import API from "../API/axios";
+import { Helmet } from "react-helmet-async";
 
 function RegisterPage() {
   const { createUser, logoutUser, setloggedinUser } = use(AuthContext);
@@ -47,15 +49,27 @@ function RegisterPage() {
       });
 
       // Storing user profile information in the database by using the API
-      axios
-        .post("http://localhost:3000/users", userProfileInfo)
+      API.post(
+        "https://cms-server-side-theta.vercel.app/users",
+        userProfileInfo
+      )
         .then((res) => {
           if (res.data.insertedId) {
-            console.log(res.data);
+            Swal.fire({
+              title: "Registration successful !",
+              icon: "success",
+              draggable: true,
+            });
+
+            navigate("/login");
           }
         })
         .catch((error) => {
-          console.log(error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Registration Unsuccessful !",
+          });
         });
 
       logoutUser()
@@ -63,7 +77,13 @@ function RegisterPage() {
           // console.log("Logout Successful");
           navigate("/login");
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        });
     });
 
     e.target.reset();
@@ -71,6 +91,10 @@ function RegisterPage() {
 
   return (
     <>
+      <Helmet>
+        <title>Sign Up | The Learning Loop</title>
+      </Helmet>
+
       <section className="w-full flex items-center justify-around">
         <div className="w-1/2 px-[13%] flex flex-col justify-center">
           <div className="mb-4">

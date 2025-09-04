@@ -22,7 +22,7 @@ const Footer = () => {
             device. Learn at your own pace, anywhere, anytime, and unlock your
             full potential.
           </p>
-          <NavLink to="/">
+          <NavLink to="/courses">
             <button className="btn bg-(--color-orange) text-white font-bold rounded-full px-6 ml-[-2px]">
               <span>Explore Courses</span>
               <svg
@@ -62,28 +62,23 @@ const Footer = () => {
           </h3>
           <ul className="space-y-2 text-gray-600">
             <li>
-              <a href="#" className="">
-                Course
+              <a href="/courses" className="">
+                All Courses
               </a>
             </li>
             <li>
-              <a href="#" className="">
+              <a href="/add-course" className="">
                 Add Course
               </a>
             </li>
             <li>
-              <a href="#" className="">
+              <a href="/manage-courses" className="">
                 Manage Courses
               </a>
             </li>
             <li>
-              <a href="#" className="">
+              <a href="/my-enrolled-courses" className="">
                 Enrolled Courses
-              </a>
-            </li>
-            <li>
-              <a href="#" className="">
-                Login
               </a>
             </li>
           </ul>
@@ -101,7 +96,16 @@ const Footer = () => {
             <span className="text-orange ">Loop</span>
           </a>
         </div>
-        <p>© {new Date().getFullYear()}. Created by Akibur Rahman</p>
+        <p>
+          © {new Date().getFullYear()}. Created by{" "}
+          <a
+            href="https://www.linkedin.com/in/akiburrchoton/"
+            target="_blank"
+            className="text-orange font-medium"
+          >
+            Akibur Rahman
+          </a>
+        </p>
       </div>
     </footer>
   );

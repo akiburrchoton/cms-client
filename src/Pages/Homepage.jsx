@@ -4,6 +4,7 @@ import Banner from "../Components/Other/Banner";
 import Loading from "../Components/Common/Loading";
 import LatestCourses from "../Components/Other/LatestCourses";
 import PopularCourses from "../Components/Other/PopularCourses";
+import { Helmet } from "react-helmet-async";
 
 function Homepage() {
   const data = useLoaderData();
@@ -12,6 +13,10 @@ function Homepage() {
 
   return (
     <div className="w-full">
+      <Helmet>
+        <title>Home | The Learning Loop</title>
+      </Helmet>
+
       <Banner></Banner>
 
       {!latestCourses ? (
