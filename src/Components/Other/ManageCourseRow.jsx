@@ -31,7 +31,7 @@ function ManageCourseRow({ myCourse, userEmail, setmyCourses }) {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://cms-server-side-theta.vercel.app/delete/`, {
+          .delete(`https://learningloopserver.vercel.app/delete/`, {
             data: {
               courseInformation,
             },

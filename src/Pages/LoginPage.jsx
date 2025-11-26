@@ -24,7 +24,7 @@ function LoginPage() {
       const idToken = await user.getIdToken();
 
       await API.post(
-        "https://cms-server-side-theta.vercel.app/api/sessionLogin",
+        "https://learningloopserver.vercel.app/api/sessionLogin",
         { idToken: idToken },
         {
           withCredentials: true,
@@ -211,7 +211,7 @@ function LoginPage() {
         {/* Right Section  */}
         <div className="w-1/2">
           <img
-            src="src/assets/banner-img-2.jpg"
+            src="https://i.ibb.co/gLDrqsv3/banner-img-2.jpg"
             alt=""
             className="w-full h-screen object-cover object-center"
           />

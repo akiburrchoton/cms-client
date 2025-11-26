@@ -13,7 +13,7 @@ function ManageCourses() {
 
   useEffect(() => {
     API.post(
-      "https://cms-server-side-theta.vercel.app/myCourses",
+      "https://learningloopserver.vercel.app/myCourses",
       { email: userEmail },
       {
         withCredentials: true,

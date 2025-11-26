@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create a new Axios instance with your backend URL
 const API = axios.create({
-    baseURL: 'https://cms-server-side-theta.vercel.app',
+    baseURL: 'https://learningloopserver.vercel.app/',
 });
 
 // ⭐ Add the request interceptor

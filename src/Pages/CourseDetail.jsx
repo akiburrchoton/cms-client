@@ -40,10 +40,7 @@ function CourseDetail() {
   }, [isClicked]);
 
   const handleEnrollClick = () => {
-    API.post(
-      "https://cms-server-side-theta.vercel.app/enrolCourse",
-      enrolmentInfo
-    )
+    API.post("https://learningloopserver.vercel.app/enrolCourse", enrolmentInfo)
       .then((res) => {
         if (res.data.insertedId) {
           Swal.fire({

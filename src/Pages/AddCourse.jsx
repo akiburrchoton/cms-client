@@ -33,7 +33,7 @@ function AddCourse() {
 
     // Store in Databse
     API.post(
-      "https://cms-server-side-theta.vercel.app/addcourse",
+      "https://learningloopserver.vercel.app/addcourse",
       courseInformation
     )
       .then((result) => {

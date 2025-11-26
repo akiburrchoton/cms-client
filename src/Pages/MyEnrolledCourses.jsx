@@ -13,7 +13,7 @@ function MyEnrolledCourses() {
   const [myEnrolledCourses, setmyEnrolledCourses] = useState([]);
 
   useEffect(() => {
-    API.post("https://cms-server-side-theta.vercel.app/myEnrolledCourses", {
+    API.post("https://learningloopserver.vercel.app/myEnrolledCourses", {
       email: userEmail,
     })
       .then((result) => {

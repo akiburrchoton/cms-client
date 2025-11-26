@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
         index: true,
         path: "/",
         loader: () =>
-          fetch("https://cms-server-side-theta.vercel.app/selectedCourses", {
+          fetch("https://learningloopserver.vercel.app/selectedCourses", {
             credentials: "include",
           }),
         hydrateFallbackElement: <Loading></Loading>,
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
       {
         path: "/courses",
         loader: () =>
-          fetch("https://cms-server-side-theta.vercel.app/courses", {
+          fetch("https://learningloopserver.vercel.app/courses", {
             credentials: "include",
           }),
         hydrateFallbackElement: <Loading></Loading>,
@@ -49,12 +49,9 @@ export const router = createBrowserRouter([
       {
         path: "/course/:id",
         loader: ({ params }) =>
-          fetch(
-            `https://cms-server-side-theta.vercel.app/course/${params.id}`,
-            {
-              credentials: "include",
-            }
-          ),
+          fetch(`https://learningloopserver.vercel.app/course/${params.id}`, {
+            credentials: "include",
+          }),
         hydrateFallbackElement: <Loading></Loading>,
         Component: CourseDetail,
       },

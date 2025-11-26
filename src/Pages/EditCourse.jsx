@@ -10,7 +10,7 @@ function EditCourse() {
   const [courseDetails, setCourseDetails] = useState();
 
   useEffect(() => {
-    API.get(`https://cms-server-side-theta.vercel.app/course/${id}`)
+    API.get(`https://learningloopserver.vercel.app/course/${id}`)
       .then((response) => {
         setCourseDetails(response.data);
       })
@@ -31,7 +31,7 @@ function EditCourse() {
     const updatedCourseDetails = Object.fromEntries(formData.entries());
 
     API.patch(
-      `https://cms-server-side-theta.vercel.app/updateCourse/${id}`,
+      `https://learningloopserver.vercel.app/updateCourse/${id}`,
       updatedCourseDetails
     )
       .then((response) => {

@@ -49,10 +49,7 @@ function RegisterPage() {
       });
 
       // Storing user profile information in the database by using the API
-      API.post(
-        "https://cms-server-side-theta.vercel.app/users",
-        userProfileInfo
-      )
+      API.post("https://learningloopserver.vercel.app/users", userProfileInfo)
         .then((res) => {
           if (res.data.insertedId) {
             Swal.fire({

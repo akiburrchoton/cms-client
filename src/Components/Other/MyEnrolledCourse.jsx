@@ -37,7 +37,7 @@ function MyEnrolledCourse({
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://cms-server-side-theta.vercel.app/unenroll/${courseID}`, {
+          .delete(`https://learningloopserver.vercel.app/unenroll/${courseID}`, {
             data: {
               courseInformation,
             },
