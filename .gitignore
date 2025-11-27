@@ -13,6 +13,8 @@ dist-ssr
 *.local
 __TODO__
 __Features__
+.env
+.env.local
 
 # Editor directories and files
 .vscode/*
