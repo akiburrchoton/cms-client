@@ -1,7 +1,3 @@
-That's a great, concise structure\! Based on your request, here is a README for a **Course Management System** following the structure of your **Recipe Book App** and maintaining a professional, on-point style.
-
----
-
 # 🎓 Course Management System (CMS)
 
 A robust, user-friendly platform for educators and students to manage, access, and track courses and enrollment. Built as a single-page application (SPA) to streamline course administration, material delivery, and student progress tracking.
